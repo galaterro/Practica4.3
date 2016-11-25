@@ -19,12 +19,32 @@ public class Ejecutador {
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
         Document doc =  dBuilder.parse(file);
 
+
+
         System.out.println(doc.getDocumentElement().getNodeName());
         NodeList nl = doc.getElementsByTagName("tabla");
 
         for (int i = 0; i < nl.getLength(); i++) {
             Node n = nl.item(i);
-            System.out.println(n.getNodeName());
+            Element elem = (Element) n;
+            System.out.println(n.getNodeName() + ": " + elem.getAttribute("nombre"));
+            System.out.println("\t\t" + elem.getElementsByTagName("nombre").item(0).getNodeName() + "\t\t" +
+                    elem.getElementsByTagName("tipo").item(0).getNodeName() + "\t\t" +
+                    elem.getElementsByTagName("valor").item(0).getNodeName());
+            for (int j = 0; j < ((Element) n).getElementsByTagName("campo").getLength(); j++) {
+                System.out.println("\t\t" + elem.getElementsByTagName("nombre").item(j).getTextContent() + "\t\t" +
+                        elem.getElementsByTagName("tipo").item(j).getTextContent() + "\t\t" +
+                        elem.getElementsByTagName("valor").item(j).getTextContent());
+            }
+
+
+
+            /*
+            System.out.println("Staff id : " + eElement.getAttribute("id"));
+			System.out.println("First Name : " + eElement.getElementsByTagName("firstname").item(0).getTextContent());
+			System.out.println("Last Name : " + eElement.getElementsByTagName("lastname").item(0).getTextContent());
+			System.out.println("Nick Name : " + eElement.getElementsByTagName("nickname").item(0).getTextContent());
+			System.out.println("Salary : " + eElement.getElementsByTagName("salary").item(0).getTextContent());*/
         }
     }
 }
